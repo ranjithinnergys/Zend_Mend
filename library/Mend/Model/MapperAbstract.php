@@ -30,7 +30,7 @@ abstract class Mend_Model_MapperAbstract extends stdClass
 {
 
 	/**
-	 * @var string classname which corresponds to a Mend_Model_Abstract class
+	 * @var string classname which corresponds to a Mend_Model_DomainAbstract class
 	 */
 	protected static $_domainClassname;
 
@@ -132,7 +132,7 @@ abstract class Mend_Model_MapperAbstract extends stdClass
 	/**
 	 * Create an empty domain object
 	 *
-	 * @return Mend_Model_Abstract
+	 * @return Mend_Model_DomainAbstract
 	 */
 	public function create()
 	{
@@ -144,7 +144,7 @@ abstract class Mend_Model_MapperAbstract extends stdClass
 	 * Fetch a model by unique identifier
 	 *
 	 * @param mixed $id A vaue which identifies a unique domain object
-	 * @return Mend_Model_Abstract
+	 * @return Mend_Model_DomainAbstract
 	 */
 	abstract public function fetch($id);
 
@@ -153,12 +153,12 @@ abstract class Mend_Model_MapperAbstract extends stdClass
 	 *
 	 * @return $this Provides fluent interface
 	 */
-	abstract public function save(Mend_Model_Abstract $domain);
+	abstract public function save(Mend_Model_DomainAbstract $domain);
 
 	/**
 	 * Delete
 	 *
 	 * @return $this Provides fluent interface
 	 */
-	abstract public function delete(Mend_Model_Abstract $domain);
+	abstract public function delete(Mend_Model_DomainAbstract $domain);
 }

@@ -21,7 +21,7 @@
  * @author Doug Hurst <dalan.hurst@gmail.com>
  * @link http://martinfowler.com/eaaCatalog/domainModel.html
  */
-abstract class Mend_Model_Abstract
+abstract class Mend_Model_DomainAbstract
     extends stdClass
     implements ArrayAccess, Serializable
 {
@@ -156,7 +156,7 @@ abstract class Mend_Model_Abstract
 	 *
 	 * Decomposes a domain into internal types
 	 *
-	 * @param array|null $candidate_data Optional array of domains to process
+	 * @param array|null $candidateData Optional array of domains to process
 	 * @return array
 	 */
 	public function toArray(array $candidateData = null)
@@ -166,7 +166,7 @@ abstract class Mend_Model_Abstract
 
 		foreach ($candidateData as $key => $value) {
 			if (is_array($value)) $data[$key] = $this->toArray($value);
-			if ($value instanceof Mend_Model_Abstract) $data[$key] = $value->toArray();
+			if ($value instanceof Mend_Model_DomainAbstract) $data[$key] = $value->toArray();
 			if (is_object($value)) $data[$key] = (array) $value;
 			else $data[$key] = $value;
 		}
@@ -187,7 +187,7 @@ abstract class Mend_Model_Abstract
 
 		foreach ($this->_data as $property => $value) {
 			if (isset($data[$property])) {
-				if ($value instanceof Mend_Model_Abstract) $this->$property->populate($data[$property]);
+				if ($value instanceof Mend_Model_DomainAbstract) $this->$property->populate($data[$property]);
 				if (is_object($value)) {
 				    throw new DomainException('Cannot populate an instance of '.get_class($object).'.');
 				}

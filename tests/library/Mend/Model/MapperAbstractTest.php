@@ -1,5 +1,5 @@
 <?php
-class Mend_Model_MapperAbstract_DomainMock extends Mend_Model_Abstract
+class Mend_Model_MapperAbstract_DomainMock extends Mend_Model_DomainAbstract
 {
 }
 
@@ -10,7 +10,7 @@ class Mend_Model_MapperAbstract_MapperMock extends Mend_Model_MapperAbstract
 	    return $this->addDbTable($name, $schema);
 	}
 
-	public function delete(Mend_Model_Abstract $domain)
+	public function delete(Mend_Model_DomainAbstract $domain)
 	{
 	    return;
 	}
@@ -20,7 +20,7 @@ class Mend_Model_MapperAbstract_MapperMock extends Mend_Model_MapperAbstract
 	    return;
 	}
 
-	public function save(Mend_Model_Abstract $domain)
+	public function save(Mend_Model_DomainAbstract $domain)
 	{
 	    return;
 	}
