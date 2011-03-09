@@ -49,6 +49,17 @@ abstract class Mend_Model_MapperAbstract extends stdClass
 	}
 
 	/**
+	 * Magic Clone
+	 *
+	 * Doesn't make sense to clone a singleton
+	 *
+	 * @access protected
+	 */
+	protected function __clone()
+	{
+	}
+
+	/**
 	 * Factory
 	 *
 	 * @param string $name Name of mapper to instantiate
