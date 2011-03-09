@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="Bootstrap.php">
+	<logging>
+		<log type="coverage-html" target="../docs/coverage" charset="UTF-8" yui="true" highlight="true" lowUpperBound="50" highLowerBound="80"></log>
+		<log type="testdox-text" target="../docs/testdox.txt"></log>
+	</logging>
+	<testsuite name="All Tests">
+		<directory>./</directory>
+	</testsuite>
+	<filter>
+		<whitelist>
+			<directory suffix=".php">../library</directory>
+			<directory suffix=".php">../application</directory>
+			<exclude>
+				<directory suffix=".phtml">../application</directory>
+			</exclude>
+		</whitelist>
+	</filter>
+</phpunit>
