@@ -92,7 +92,7 @@ abstract class Mend_Model_MapperAbstract extends stdClass
 	 * @param string|null $schema DB table schema
 	 * @return $this Provides fluent interface
 	 */
-	protected function addDbTable($name, $schema = null)
+	protected function _addDbTable($name, $schema = null)
 	{
 		if (!is_string($name)) throw new InvalidArgumentException('DB table name must be a string');
 		if ($schema !== null && !is_string($schema)) {
@@ -117,13 +117,14 @@ abstract class Mend_Model_MapperAbstract extends stdClass
 	 * @param string $key schema_name.table_name
 	 * @return Zend_Db_Table
 	 */
-	protected function getDbTable($key)
+	protected function _getDbTable($key)
 	{
 		if (!is_string($key)) throw new InvalidArgumentException('DB table key must be a string.');
+		if (strpos($key, '.') === false) throw new InvalidArgumentException('DB table key must contain schema.');
 		if (!isset($this->_dbTables[$key])) {
 			$schema = substr($key, 0, strpos($key, '.'));
 			$name = substr($key, (strpos($key, '.') + 1));
-			$this->addDbTable($name, $schema);
+			$this->_addDbTable($name, $schema);
 		}
 
 		return $this->_dbTables[$key];
