@@ -34,6 +34,21 @@ class Mend_View_Helper_BodyScript extends Zend_View_Helper_HeadScript
     protected $_regKey = 'Mend_View_Helper_BodyScript';
 
     /**
+     * Create script HTML
+     *
+     * @param  string $type
+     * @param  array $attributes
+     * @param  string $content
+     * @param  string|int $indent
+     * @return string
+     */
+    public function itemToString($item, $indent, $escapeStart, $escapeEnd)
+    {
+        $html = parent::itemToString($item, $indent, $escapeStart, $escapeEnd);
+        return str_replace(PHP_EOL, '', $html);
+    }
+
+    /**
      * Return bodyScript object
      *
      * Returns bodyScript helper object; optionally, allows specifying a script
