@@ -18,7 +18,7 @@
  * HTML5 Email Form Element
  *
  * @since Feb 18, 2011
- * @author Doug Hurst <dalan.hurst@gmail.com>
+ * @author Doug Hurst <doug@echoeastcreative.com>
  * @link http://dev.w3.org/html5/markup/input.email.html
  */
 class Mend_Form_Element_Email extends Zend_Form_Element_Xhtml

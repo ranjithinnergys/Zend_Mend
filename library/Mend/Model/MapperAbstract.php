@@ -23,14 +23,14 @@
  * the DB schema is already ignorant of the domain model.
  *
  * @since Feb 13, 2011
- * @author Doug Hurst <dalan.hurst@gmail.com>
+ * @author Doug Hurst <doug@echoeastcreative.com>
  * @link http://martinfowler.com/eaaCatalog/dataMapper.html
  */
-abstract class Mend_Model_MapperAbstract extends stdClass
+abstract class Mend_Model_MapperAbstract
 {
 
 	/**
-	 * @var string classname which corresponds to a Mend_Model_DomainAbstract class
+	 * @var string classname which corresponds to a domain class
 	 */
 	protected static $_domainClassname;
 

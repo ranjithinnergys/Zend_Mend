@@ -18,7 +18,7 @@
  * FlashMessenger View Helper
  *
  * @since Feb 18, 2011
- * @author Doug Hurst <dalan.hurst@gmail.com>
+ * @author Doug Hurst <doug@echoeastcreative.com>
  */
 class Mend_View_Helper_FlashMessages
 {

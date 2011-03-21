@@ -18,11 +18,10 @@
  * Abstract Domain Model
  *
  * @since Feb 17, 2011
- * @author Doug Hurst <dalan.hurst@gmail.com>
+ * @author Doug Hurst <doug@echoeastcreative.com>
  * @link http://martinfowler.com/eaaCatalog/domainModel.html
  */
 abstract class Mend_Model_DomainAbstract
-    extends stdClass
     implements ArrayAccess, Serializable
 {
 

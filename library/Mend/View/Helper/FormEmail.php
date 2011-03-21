@@ -18,7 +18,7 @@
  * HTML5 Form Email Element View Helper
  *
  * @since Feb 19, 2011
- * @author Doug Hurst <dalan.hurst@gmail.com>
+ * @author Doug Hurst <doug@echoeastcreative.com>
  */
 abstract class Mend_View_Helper_FormEmail extends Mend_View_Helper_FormHtml5Abstract
 {

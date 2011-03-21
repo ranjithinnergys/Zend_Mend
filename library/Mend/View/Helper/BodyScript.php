@@ -20,7 +20,7 @@
  * Helper for setting and retrieving script elements for HTML body section
  *
  * @since Feb 18, 2011
- * @author Doug Hurst <dalan.hurst@gmail.com>
+ * @author Doug Hurst <doug@echoeastcreative.com>
  * @uses Zend_View_Helper_HeadScript
  */
 class Mend_View_Helper_BodyScript extends Zend_View_Helper_HeadScript
@@ -45,7 +45,7 @@ class Mend_View_Helper_BodyScript extends Zend_View_Helper_HeadScript
     public function itemToString($item, $indent, $escapeStart, $escapeEnd)
     {
         $html = parent::itemToString($item, $indent, $escapeStart, $escapeEnd);
-        return str_replace(PHP_EOL, '', $html);
+        return $html;
     }
 
     /**
