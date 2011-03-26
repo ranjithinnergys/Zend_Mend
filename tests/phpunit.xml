@@ -10,10 +10,6 @@
 	<filter>
 		<whitelist>
 			<directory suffix=".php">../library</directory>
-			<directory suffix=".php">../application</directory>
-			<exclude>
-				<directory suffix=".phtml">../application</directory>
-			</exclude>
 		</whitelist>
 	</filter>
 </phpunit>
