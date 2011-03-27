@@ -64,7 +64,7 @@ abstract class Mend_Model_DomainAbstract
 	 */
 	public function __isset($name)
 	{
-		return isset($this->_data[$name]);
+		return array_key_exists($name, $this->_data);
 	}
 
 	/**
