@@ -144,14 +144,15 @@ abstract class Mend_Model_MapperAbstract
 	/**
 	 * Fetch a model by unique identifier
 	 *
-	 * @param mixed $id A vaue which identifies a unique domain object
-	 * @return Mend_Model_DomainAbstract
+	 * @param mixed $id A value which identifies a unique domain object
+	 * @return Mend_Model_DomainAbstract|null
 	 */
 	abstract public function fetch($id);
 
 	/**
 	 * Save
 	 *
+	 * @param Mend_Model_DomainAbstract $domain A domain object
 	 * @return $this Provides fluent interface
 	 */
 	abstract public function save(Mend_Model_DomainAbstract $domain);
@@ -159,7 +160,8 @@ abstract class Mend_Model_MapperAbstract
 	/**
 	 * Delete
 	 *
+	 * @param mixed $id A value which identifies a unique domain object
 	 * @return $this Provides fluent interface
 	 */
-	abstract public function delete(Mend_Model_DomainAbstract $domain);
+	abstract public function delete($id);
 }
