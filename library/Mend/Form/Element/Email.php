@@ -1,32 +1,35 @@
 <?php
 /**
- * Zend_Mend
+ * Mend Library
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- *
+ * PHP version 5.3
  *
  * @category   Zend_Mend
- * @package    Form
- * @subpackage Element
+ * @package    Controllers
+ * @subpackage Plugins
+ * @author     Doug Hurst <doug@echoeastcreative.com>
+ * @copyright  2011 Echo East Creative, LLC
  * @license    http://www.opensource.org/licenses/bsd-license New BSD License
+ * @link       https://github.com/echoeastcreative/Zend_Mend
  */
 
 /**
  * HTML5 Email Form Element
  *
- * @since Feb 18, 2011
- * @author Doug Hurst <doug@echoeastcreative.com>
- * @link http://dev.w3.org/html5/markup/input.email.html
+ * @category   Zend_Mend
+ * @package    Forms
+ * @subpackage Elements
+ * @author     Doug Hurst <doug@echoeastcreative.com>
+ * @copyright  2011 Echo East Creative, LLC
+ * @license    http://www.opensource.org/licenses/bsd-license New BSD License
+ * @link       http://dev.w3.org/html5/markup/input.email.html
+ * @link       https://github.com/echoeastcreative/Zend_Mend
  */
 class Mend_Form_Element_Email extends Zend_Form_Element_Xhtml
 {
-
-	/**
-	 * Default form view helper to use for rendering
-	 * @var string
-	 */
-	public $helper = 'formEmail';
+    /**
+     * Default form view helper to use for rendering
+     * @var string
+     */
+    public $helper = 'formEmail';
 }

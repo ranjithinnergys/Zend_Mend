@@ -1,35 +1,39 @@
 <?php
 /**
- * Zend_Mend
+ * Mend Library
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- *
+ * PHP version 5.3
  *
  * @category   Zend_Mend
- * @package    Controller
- * @subpackage Plugin
+ * @package    Controllers
+ * @subpackage Plugins
+ * @author     Doug Hurst <doug@echoeastcreative.com>
+ * @copyright  2011 Echo East Creative, LLC
  * @license    http://www.opensource.org/licenses/bsd-license New BSD License
+ * @link       https://github.com/echoeastcreative/Zend_Mend
  */
 
 /**
  * XHTML Content-Negotiation Controller Plugin
  *
- * @author Richard Knop <risoknop@gmail.com>
- * @author Doug Hurst <doug@echoeastcreative.com>
- * @link http://blog.richardknop.com/2010/07/zend-framework-content-negotiation-plugin/
- * @link http://framework.zend.com/manual/en/zend.controller.plugins.html
+ * @category   Zend_Mend
+ * @package    Controllers
+ * @subpackage Plugins
+ * @author     Richard Knop <risoknop@gmail.com>
+ * @author     Doug Hurst <doug@echoeastcreative.com>
+ * @license    http://www.opensource.org/licenses/bsd-license New BSD License
+ * @link       http://blog.richardknop.com/2010/07/zend-framework-content-negotiation-plugin/
+ * @link       http://framework.zend.com/manual/en/zend.controller.plugins.html
  */
 class Mend_Controller_Plugin_XhtmlNegotiation extends Zend_Controller_Plugin_Abstract
 {
     /**
      * Pre-Dispatch Action
      *
-     * @see Zend_Controller_Plugin_Abstract::preDispatch()
      * @param Zend_Controller_Request_Abstract $request The request object
+     *
      * @return void
+     * @see Zend_Controller_Plugin_Abstract::preDispatch()
      */
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {

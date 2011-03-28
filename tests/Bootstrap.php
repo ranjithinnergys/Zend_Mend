@@ -1,4 +1,17 @@
 <?php
+/**
+ * Mend Library
+ *
+ * PHP version 5.3
+ *
+ * @category  Zend_Mend
+ * @package   Tests
+ * @author    Doug Hurst <doug@echoeastcreative.com>
+ * @copyright 2011 Echo East Creative, LLC
+ * @license   http://www.opensource.org/licenses/bsd-license New BSD License
+ * @link      https://github.com/echoeastcreative/Zend_Mend
+ */
+
 //  Set conforming error level
 error_reporting(E_ALL | E_STRICT);
 
