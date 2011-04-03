@@ -70,7 +70,7 @@ abstract class Mend_Model_MapperAbstract
         }
 
         //  Create classname
-        $classname = 'Application_Model_'.$name.'Mapper';
+        $classname = 'Application_Model_Mapper_'.$name;
         if (!class_exists($classname)) {
             if (class_exists($name)) {
                 $classname = $name;
