@@ -4,28 +4,36 @@
  *
  * PHP version 5.3
  *
- * @category  Zend_Mend
- * @package   Models
- * @author    Doug Hurst <doug@echoeastcreative.com>
- * @copyright 2011 Echo East Creative, LLC
- * @license   http://www.opensource.org/licenses/bsd-license New BSD License
- * @link      https://github.com/echoeastcreative/Zend_Mend
+ * @category   Zend_Mend
+ * @package    Db
+ * @subpackage Table
+ * @author     Doug Hurst <doug@echoeastcreative.com>
+ * @copyright  2011 Echo East Creative, LLC
+ * @license    http://www.opensource.org/licenses/bsd-license New BSD License
+ * @link       https://github.com/echoeastcreative/Zend_Mend
  */
 
 /**
- * Abstract DbTable Model
+ * Abstract DB Table Model
  *
- * @category  Zend_Mend
- * @package   Models
- * @author    Doug Hurst <doug@echoeastcreative.com>
- * @copyright 2011 Echo East Creative, LLC
- * @license   http://www.opensource.org/licenses/bsd-license New BSD License
- * @link      http://martinfowler.com/eaaCatalog/domainModel.html
- * @link      https://github.com/echoeastcreative/Zend_Mend
+ * @category   Zend_Mend
+ * @package    Db
+ * @subpackage Table
+ * @author     Doug Hurst <doug@echoeastcreative.com>
+ * @copyright  2011 Echo East Creative, LLC
+ * @license    http://www.opensource.org/licenses/bsd-license New BSD License
+ * @link       https://github.com/echoeastcreative/Zend_Mend
  */
-abstract class Mend_Model_DbTableAbstract
+abstract class Mend_Db_Table_TableAbstract
 extends Zend_Db_Table_Abstract
 {
+
+    /**
+     * Classname for rowset
+     *
+     * @var string
+     */
+    protected $_rowsetClass = 'Mend_Db_Table_Rowset';
 
     /**
      * Parse an ENUM() Column as an Array
