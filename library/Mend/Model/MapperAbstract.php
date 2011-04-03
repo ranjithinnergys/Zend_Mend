@@ -91,10 +91,12 @@ abstract class Mend_Model_MapperAbstract
     /**
      * Sets the local instance of this mapper's Zend_Db_Table object
      *
-     * @param string      $name   DB table name
+     * @param string      $name   DB table name OR DbTableAbstract classname
      * @param string|null $schema DB table schema
      *
      * @return $this Provides fluent interface
+     * @throws InvalidArgumentException
+     * @throws DomainException
      */
     protected function addDbTable($name, $schema = null)
     {
@@ -106,18 +108,30 @@ abstract class Mend_Model_MapperAbstract
         }
 
         //  Create new Zend_Db_Table
-        $config = array('name' => $name);
-        if ($schema !== null) {
-            $config['schema'] = $schema;
+        try {
+            if (class_exists($name)) {
+                $db_table = new $name();
+                if (!($db_table instanceof Zend_Db_Table_Abstract)) {
+                    throw new DomainException('"'.$name.'" is not an instance of Zend_Db_Table_Abstract');
+                }
+            }
+        } catch (Exception $e) {
+            if ($e instanceof DomainException) {
+                throw $e;
+            }
+            $config = array('name' => $name);
+            if ($schema !== null) {
+                $config['schema'] = $schema;
+            }
+            $db_table = new Zend_Db_Table($config);
         }
-        $dbTable = new Zend_Db_Table($config);
 
         //  Add to array
         $key = strtolower(
-            $dbTable->info(Zend_Db_Table::SCHEMA).'.'.
-            $dbTable->info(Zend_Db_Table::NAME)
+            $db_table->info(Zend_Db_Table::SCHEMA).'.'.
+            $db_table->info(Zend_Db_Table::NAME)
         );
-        $this->db_tables[$key] = $dbTable;
+        $this->db_tables[$key] = $db_table;
 
         return $this;
     }
@@ -125,15 +139,20 @@ abstract class Mend_Model_MapperAbstract
     /**
      * Gets or Lazy-Loads a Zend_Db_Table object
      *
-     * @param string $key schema_name.table_name
+     * @param string|null $key schema_name.table_name
      *
      * @return Zend_Db_Table
      */
-    protected function getDbTable($key)
+    protected function getDbTable($key = null)
     {
-        if (!is_string($key)) {
+        if (!is_string($key) && !is_null($key)) {
             throw new InvalidArgumentException('DB table key must be a string.');
         }
+
+        if (is_null($key)) {
+            return reset($this->db_tables);
+        }
+
         if (strpos($key, '.') === false) {
             throw new InvalidArgumentException('DB table key must contain schema.');
         }
