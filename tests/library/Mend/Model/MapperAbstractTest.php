@@ -63,7 +63,7 @@ class Mend_Model_MapperAbstract_MapperMock extends Mend_Model_MapperAbstract
      * @return Zend_Db_Table
      * @see Mend_Model_MapperAbstract::getDbTable()
      */
-    public function getDbTable($key)
+    public function getDbTable($key = null)
     {
         return parent::getDbTable($key);
     }
