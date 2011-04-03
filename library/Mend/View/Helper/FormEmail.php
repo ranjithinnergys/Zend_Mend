@@ -24,7 +24,7 @@
  * @license    http://www.opensource.org/licenses/bsd-license New BSD License
  * @link       https://github.com/echoeastcreative/Zend_Mend
  */
-abstract class Mend_View_Helper_FormEmail extends Mend_View_Helper_FormHtml5Abstract
+class Mend_View_Helper_FormEmail extends Mend_View_Helper_FormHtml5Abstract
 {
     /** @staticvar HTML5_TYPE input[type] introduced by HTML5 **/
     const HTML5_TYPE = 'email';
