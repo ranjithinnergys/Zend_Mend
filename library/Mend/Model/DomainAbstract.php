@@ -96,9 +96,7 @@ implements ArrayAccess, Serializable
      */
     public function offsetSet($offset, $value)
     {
-        if (is_null($offset)) {
-            $this->data[] = $value;
-        } else {
+        if (array_key_exists($offset, $this->data)) {
             $this->data[$offset] = $value;
         }
     }
@@ -113,7 +111,7 @@ implements ArrayAccess, Serializable
      */
     public function offsetExists($offset)
     {
-        return isset($this->data[$offset]);
+        return array_key_exists($offset, $this->data);
     }
 
     /**
@@ -126,7 +124,7 @@ implements ArrayAccess, Serializable
      */
     public function offsetUnset($offset)
     {
-        unset($this->data[$offset]);
+        $this->data[$offset] = null;
     }
 
     /**
@@ -169,32 +167,42 @@ implements ArrayAccess, Serializable
     /**
      * Domain to Array
      *
-     * Decomposes a domain into internal types
-     *
-     * @param array|null $candidate_data Optional array of domains to process
+     * Decomposes a domain into internal types.
      *
      * @return array
      */
-    public function toArray(array $candidate_data = null)
+    public function toArray()
     {
         $data = array();
-        if ($candidate_data === null) {
-            $candidate_data = $this->data;
-        }
-
-        foreach ($candidate_data as $key => $value) {
-            if (is_array($value)) {
-                $data[$key] = $this->toArray($value);
-            }
-            if ($value instanceof Mend_Model_DomainAbstract) {
-                $data[$key] = $value->toArray();
-            }
-            if (is_object($value)) {
-                $data[$key] = (array) $value;
-            } else {
+        $callback = function($value, $key) use (&$data, &$callback)
+        {
+            //  If $value is scalar, assign
+            if (!is_object($value) && !is_array($value)) {
                 $data[$key] = $value;
             }
-        }
+
+            //  If $this contains another domain object, call toArray()
+            if ($value instanceof Mend_Model_DomainAbstract) {
+                $data[$key] = $value->toArray();
+                $value = null;
+            }
+
+            //  If $value is some other sort of object, attempt to cast it
+            if (is_object($value)) {
+                $value = (array) $value;
+            }
+
+            //  Recur into arrays
+            if (is_array($value)) {
+                $parent_data = $data;
+                $data = array();
+                array_walk($value, $callback);
+                $parent_data[$key] = $data;
+                $data = $parent_data;
+            }
+        };
+
+        array_walk($this->data, $callback);
 
         return $data;
     }
@@ -202,7 +210,7 @@ implements ArrayAccess, Serializable
     /**
      * Populate from Array
      *
-     * @param mixed $data Data which can be used to populate a domain
+     * @param array|Zend_Form $data Data which can be used to populate a domain
      *
      * @return $this Provides fluent interface
      */
@@ -219,9 +227,8 @@ implements ArrayAccess, Serializable
             if (isset($data[$property])) {
                 if ($value instanceof Mend_Model_DomainAbstract) {
                     $this->$property->populate($data[$property]);
-                }
-                if (is_object($value)) {
-                    throw new DomainException('Cannot populate an instance of '.get_class($object).'.');
+                } else if (is_object($value)) {
+                    throw new DomainException('Cannot populate an instance of '.get_class($value).'.');
                 } else {
                     $this->$property = $data[$property];
                 }

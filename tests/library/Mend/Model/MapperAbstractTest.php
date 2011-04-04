@@ -110,7 +110,7 @@ class Mend_Model_MapperAbstract_MapperMock extends Mend_Model_MapperAbstract
 
 
 /**
- * Email Form Element Test
+ * Abstract Data Mapper Test
  *
  * @category  Zend_Mend
  * @package   Tests
