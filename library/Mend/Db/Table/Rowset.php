@@ -34,7 +34,9 @@ extends Zend_Db_Table_Rowset_Abstract
      */
     public function delete()
     {
-        array_walk($this, function(&$row) { if($row instanceof Zend_Db_Table_Row_Abstract) $row->delete(); });
+        foreach ($this as $row) {
+            $row->delete();
+        }
         return $this;
     }
 }
