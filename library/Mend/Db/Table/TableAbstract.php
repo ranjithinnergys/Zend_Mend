@@ -23,6 +23,7 @@
  * @copyright  2011 Echo East Creative, LLC
  * @license    http://www.opensource.org/licenses/bsd-license New BSD License
  * @link       https://github.com/echoeastcreative/Zend_Mend
+ * @uses       Mend_Db_Table_Rowset
  */
 abstract class Mend_Db_Table_TableAbstract
 extends Zend_Db_Table_Abstract

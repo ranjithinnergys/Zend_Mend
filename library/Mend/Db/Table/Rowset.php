@@ -28,7 +28,7 @@ class Mend_Db_Table_Rowset
 extends Zend_Db_Table_Rowset_Abstract
 {
     /**
-     * Delete an Entire Rowset
+     * Delete every row in a rowset
      *
      * @return $this Provides fluent interface
      */
