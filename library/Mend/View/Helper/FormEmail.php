@@ -29,9 +29,6 @@ class Mend_View_Helper_FormEmail extends Mend_View_Helper_FormHtml5Abstract
     /** @staticvar HTML5_TYPE input[type] introduced by HTML5 **/
     const HTML5_TYPE = 'email';
 
-    /** @staticvar Legacy fallback type **/
-    const FALLBACK_TYPE = 'text';
-
     /**
      * Generates an input type='email' element
      *

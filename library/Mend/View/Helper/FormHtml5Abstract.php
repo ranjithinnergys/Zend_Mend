@@ -72,7 +72,7 @@ extends Zend_View_Helper_FormElement
         if ($this->view instanceof Zend_View_Abstract
             && $this->view->doctype()->isHtml5()
         ) {
-            $inputType = self::HTML5_TYPE;
+            $inputType = static::HTML5_TYPE;
         }
 
         $html = '<input type="'.$inputType.'"'
