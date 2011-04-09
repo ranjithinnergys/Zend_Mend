@@ -181,10 +181,10 @@ implements ArrayAccess, Serializable
                 $data[$key] = $value;
             }
 
-            //  If $this contains another domain object, call toArray()
+            //  If $value contains another domain object, call toArray()
             if ($value instanceof Mend_Model_DomainAbstract) {
                 $data[$key] = $value->toArray();
-                $value = null;
+                $value = null;                  // disables further processing
             }
 
             //  If $value is some other sort of object, attempt to cast it
@@ -194,11 +194,11 @@ implements ArrayAccess, Serializable
 
             //  Recur into arrays
             if (is_array($value)) {
-                $parent_data = $data;
-                $data = array();
-                array_walk($value, $callback);
-                $parent_data[$key] = $data;
-                $data = $parent_data;
+                $parent_data = $data;           //  store current data
+                $data = array();                //  initialize new array
+                array_walk($value, $callback);  //  recursive closure(!)
+                $parent_data[$key] = $data;     //  store result of recursion
+                $data = $parent_data;           //  reset current data
             }
         };
 
@@ -213,9 +213,11 @@ implements ArrayAccess, Serializable
      * @param array|Zend_Form $data Data which can be used to populate a domain
      *
      * @return $this Provides fluent interface
+     * @throws InvalidArgumentException
      */
     public function populate($data)
     {
+        //  Convert Zend_Form to an array
         if ($data instanceof Zend_Form) {
             $data = $data->getValues();
         }
@@ -228,7 +230,7 @@ implements ArrayAccess, Serializable
                 if ($value instanceof Mend_Model_DomainAbstract) {
                     $this->$property->populate($data[$property]);
                 } else if (is_object($value)) {
-                    throw new DomainException('Cannot populate an instance of '.get_class($value).'.');
+                    $this->$property = $this->populateOther($value, $data[$property]);
                 } else {
                     $this->$property = $data[$property];
                 }
@@ -236,5 +238,26 @@ implements ArrayAccess, Serializable
         }
 
         return $this;
+    }
+
+    /**
+     * Populate an arbitrary object
+     *
+     * This method is intended to be overridden with logic for populating
+     * an object other than a Mend_Model_DomainAbstract instance.
+     *
+     * @param mixed $object The object
+     * @param mixed $data   The data to populate $object
+     *
+     * @return $object
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     */
+    protected function populateOther($object, $data)
+    {
+        if (!is_object($object)) {
+            throw new InvalidArgumentException();
+        }
+        throw new DomainException('Cannot populate an instance of '.get_class($object).'.');
     }
 }
