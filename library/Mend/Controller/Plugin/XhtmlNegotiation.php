@@ -7,10 +7,10 @@
  * @category   Zend_Mend
  * @package    Controllers
  * @subpackage Plugins
- * @author     Doug Hurst <doug@echoeastcreative.com>
- * @copyright  2011 Echo East Creative, LLC
+ * @author     Doug Hurst <dalan.hurst@gmail.com>
+ * @copyright  2011 Doug Hurst
  * @license    http://www.opensource.org/licenses/bsd-license New BSD License
- * @link       https://github.com/echoeastcreative/Zend_Mend
+ * @link       http://github.com/dalanhurst/Zend_Mend
  */
 
 /**
@@ -20,7 +20,7 @@
  * @package    Controllers
  * @subpackage Plugins
  * @author     Richard Knop <risoknop@gmail.com>
- * @author     Doug Hurst <doug@echoeastcreative.com>
+ * @author     Doug Hurst <dalan.hurst@gmail.com>
  * @license    http://www.opensource.org/licenses/bsd-license New BSD License
  * @link       http://blog.richardknop.com/2010/07/zend-framework-content-negotiation-plugin/
  * @link       http://framework.zend.com/manual/en/zend.controller.plugins.html

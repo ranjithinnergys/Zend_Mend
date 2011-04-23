@@ -6,10 +6,10 @@
  *
  * @category  Zend_Mend
  * @package   Models
- * @author    Doug Hurst <doug@echoeastcreative.com>
- * @copyright 2011 Echo East Creative, LLC
+ * @author    Doug Hurst <dalan.hurst@gmail.com>
+ * @copyright 2011 Doug Hurst
  * @license   http://www.opensource.org/licenses/bsd-license New BSD License
- * @link      https://github.com/echoeastcreative/Zend_Mend
+ * @link      http://github.com/dalanhurst/Zend_Mend
  */
 
 /**
@@ -17,11 +17,11 @@
  *
  * @category  Zend_Mend
  * @package   Models
- * @author    Doug Hurst <doug@echoeastcreative.com>
- * @copyright 2011 Echo East Creative, LLC
+ * @author    Doug Hurst <dalan.hurst@gmail.com>
+ * @copyright 2011 Doug Hurst
  * @license   http://www.opensource.org/licenses/bsd-license New BSD License
  * @link      http://martinfowler.com/eaaCatalog/dataMapper.html
- * @link      https://github.com/echoeastcreative/Zend_Mend
+ * @link      http://github.com/dalanhurst/Zend_Mend
  * @uses      Mend_Db_Table_TableAbstract
  */
 abstract class Mend_Model_MapperAbstract
