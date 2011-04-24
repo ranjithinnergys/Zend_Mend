@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Zend_XHTML5" default="all">
+	<target name="all">
+		<phingcall target="docs" />
+		<phingcall target="tests" />
+	</target>
+	<target name="docs">
+		<exec command="phpdoc --useconfig docs/phpdoc.ini" logoutput="true" />
+	</target>
+	<target name="tests">
+		<exec command="phpunit --configuration=tests/phpunit.xml" logoutput="true" />
+	</target>
+</project>
