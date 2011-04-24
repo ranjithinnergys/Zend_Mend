@@ -26,11 +26,6 @@
 class Mend_Controller_Action_Html extends Zend_Controller_Action
 {
     /**
-     * @staticvar jQuery version to bootstrap
-     */
-    const JQUERY_VERSION = '1.5.2';
-
-    /**
      * Class constructor
      *
      * The request and response objects should be registered with the
@@ -83,11 +78,6 @@ class Mend_Controller_Action_Html extends Zend_Controller_Action
             'ZendX/JQuery/View/Helper',
             'ZendX_JQuery_View_Helper'
         );
-        if (APPLICATION_ENV == 'production') {
-            $view->jQuery()->setVersion(self::JQUERY_VERSION);
-        } else {
-            $view->jQuery()->setLocalPath($view->baseUrl('js/jquery-'.self::JQUERY_VERSION.'.min.js'));
-        }
         $view->jQuery()->enable();
     }
 
