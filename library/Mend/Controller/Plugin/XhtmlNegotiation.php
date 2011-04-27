@@ -44,13 +44,19 @@ class Mend_Controller_Plugin_XhtmlNegotiation extends Zend_Controller_Plugin_Abs
 
         /** Set Response & Doctype correctly */
         if ($this->getResponse()->canSendHeaders()) {
-            $this->getResponse()->setHeader('Vary', 'Accept');
-            if (stristr($request->getHeader('Accept'), 'application/xhtml+xml') === false) {
-                $this->getResponse()->setHeader('Content-Type', 'text/html; charset=utf-8');
-                $view->doctype('HTML5');
-            } else {
+            if (stristr($request->getHeader('Accept'), 'application/xhtml+xml') !== false) {
                 $this->getResponse()->setHeader('Content-Type', 'application/xhtml+xml; charset=utf-8');
+                $this->getResponse()->setHeader('Vary', 'Accept');
                 $view->doctype('XHTML5');
+            }
+
+            //  Return HTML MIME-Type & Set HTML5 Doctype
+            if (stristr($request->getHeader('Accept'), 'application/xhtml+xml') === false
+                && stristr($request->getHeader('Accept'), 'text/html') !== false
+            ) {
+                $this->getResponse()->setHeader('Content-Type', 'text/html; charset=utf-8');
+                $this->getResponse()->setHeader('Vary', 'Accept');
+                $view->doctype('HTML5');
             }
         }
     }
