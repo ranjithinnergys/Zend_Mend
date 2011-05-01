@@ -58,6 +58,13 @@ class Mend_Controller_Action_Html extends Zend_Controller_Action
         $this->view->doctype('XHTML5');
         $this->initJQueryViewHelper();
         $this->initMendViewHelper();
+
+        // Define XMLHttpRequest
+        defined('IS_XHR')
+            || define(
+                'IS_XHR',
+                (($request->getHeader('X-Requested-With') == 'XMLHttpRequest') ? 1 : 0)
+            );
     }
 
     /**
