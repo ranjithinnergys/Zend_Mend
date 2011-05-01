@@ -37,28 +37,13 @@ class Mend_Controller_Plugin_XhtmlNegotiation extends Zend_Controller_Plugin_Abs
      */
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
-        /** Get view */
-        $viewRenderer = Zend_Controller_Action_HelperBroker::getExistingHelper('ViewRenderer');
-        $viewRenderer->initView();
-        $view = $viewRenderer->view;
-
-        /** Set Response & Doctype correctly */
+        /** Set Response correctly if possible */
         if ($this->getResponse()->canSendHeaders()) {
             if (stristr($request->getHeader('Accept'), 'application/xhtml+xml') !== false
                 || stristr($request->getHeader('Accept'), 'application/xml') !== false
             ) {
                 $this->getResponse()->setHeader('Content-Type', 'application/xhtml+xml; charset=utf-8');
                 $this->getResponse()->setHeader('Vary', 'Accept');
-                $view->doctype('XHTML5');
-            }
-
-            //  Return HTML MIME-Type & Set HTML5 Doctype
-            if (stristr($request->getHeader('Accept'), 'application/xhtml+xml') === false
-                && stristr($request->getHeader('Accept'), 'text/html') !== false
-            ) {
-                $this->getResponse()->setHeader('Content-Type', 'text/html; charset=utf-8');
-                $this->getResponse()->setHeader('Vary', 'Accept');
-                $view->doctype('HTML5');
             }
         }
     }
