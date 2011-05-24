@@ -70,27 +70,6 @@ class Mend_Controller_Plugin_XhtmlNegotiationTest extends PHPUnit_Framework_Test
     }
 
 	/**
-	 * Can respond with HTML MIME-type if acceptable
-	 *
-	 * @return void
-	 */
-    public function testCanRespondWithHtml()
-    {
-        $request = new Zend_Controller_Request_HttpTestCase();
-        $request->setHeader('Accept', 'text/html', true);
-        $response = new Zend_Controller_Response_HttpTestCase();
-        $plugin = new Mend_Controller_Plugin_XhtmlNegotiation();
-        $plugin->setResponse($response);
-        $plugin->preDispatch($request);
-
-        list($content_type, $vary) = $response->getHeaders();
-        $this->assertEquals('Content-Type', $content_type['name']);
-        $this->assertEquals('text/html; charset=utf-8', $content_type['value']);
-        $this->assertEquals('Vary', $vary['name']);
-        $this->assertEquals('Accept', $vary['value']);
-    }
-
-	/**
 	 * Does not disrupt other MIME-types
 	 *
 	 * @return void

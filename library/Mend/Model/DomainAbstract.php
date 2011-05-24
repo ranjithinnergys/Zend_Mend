@@ -15,6 +15,10 @@
 /**
  * Abstract Domain Model
  *
+ * This represents a liberal domain model, meaning one which effectively allows
+ * public mutation (setting). For a more restrictive domain implementation,
+ * see {@see Mend_Model_RestrictiveDomainAbstract}
+ *
  * @category  Zend_Mend
  * @package   Models
  * @author    Doug Hurst <dalan.hurst@gmail.com>

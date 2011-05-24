@@ -27,12 +27,14 @@
 abstract class Mend_Model_MapperAbstract
 {
     /**
-     * @var string classname which corresponds to a domain class
+     * @var string A classname which corresponds to the domain class for this
+     *             mapper. A mapper should only be responsible for a single
+     *             domain object
      */
     protected $domain_classname;
 
     /**
-     * @var Zend_Db_Table_Abstract The local instance of a table object
+     * @var array Set of Zend_Db_Table objects
      */
     protected $db_tables = array();
 
@@ -48,7 +50,7 @@ abstract class Mend_Model_MapperAbstract
     /**
      * Magic Clone
      *
-     * Doesn't make sense to clone a singleton
+     * Doesn't make sense to clone a mapper
      *
      * @access protected
      * @return void
@@ -104,7 +106,7 @@ abstract class Mend_Model_MapperAbstract
         if (!is_string($name)) {
             throw new InvalidArgumentException('DB table name must be a string');
         }
-        if ($schema !== null && !is_string($schema)) {
+        if (!is_null($schema) && !is_string($schema)) {
             throw new InvalidArgumentException('DB schema name must be a string.');
         }
 
