@@ -62,9 +62,9 @@ class Mend_Controller_Plugin_XhtmlNegotiationTest extends PHPUnit_Framework_Test
         $plugin->setResponse($response);
         $plugin->preDispatch($request);
 
-        list($content_type, $vary) = $response->getHeaders();
-        $this->assertEquals('Content-Type', $content_type['name']);
-        $this->assertEquals('application/xhtml+xml; charset=utf-8', $content_type['value']);
+        list($contentType, $vary) = $response->getHeaders();
+        $this->assertEquals('Content-Type', $contentType['name']);
+        $this->assertEquals('application/xhtml+xml; charset=utf-8', $contentType['value']);
         $this->assertEquals('Vary', $vary['name']);
         $this->assertEquals('Accept', $vary['value']);
     }

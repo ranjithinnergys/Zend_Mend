@@ -39,12 +39,12 @@ extends Zend_Db_Table_Abstract
     /**
      * Parse an ENUM() Column as an Array
      *
-     * @param string $column_name Column name of ENUM() type
+     * @param string $column Column name of ENUM() type
      *
      * @return array
      * @throws DomainException
      */
-    public function parseEnumColumn($column_name)
+    public function parseEnumColumn($column)
     {
         //  Get metadata
         $metadata = $this->info(Zend_Db_Table::METADATA);
@@ -53,8 +53,8 @@ extends Zend_Db_Table_Abstract
         //  This may be dependent on implementation, but this method expects
         //  an ENUM() column to be represented as a string beginning with the
         //  string 'enum'
-        if (strpos($metadata[$column_name]['DATA_TYPE'], 'enum') !== 0) {
-            throw new DomainException('"'.$column_name.'" is not an ENUM() column.');
+        if (strpos($metadata[$column]['DATA_TYPE'], 'enum') !== 0) {
+            throw new DomainException('"'.$column.'" is not an ENUM() column.');
         }
 
         //  Create array of quoted values
@@ -70,7 +70,9 @@ extends Zend_Db_Table_Abstract
         //  Strip quotes
         array_walk(
             $enum,
-            function(&$value) { $value = trim(stripslashes($value), "'"); }
+            function(&$value) {
+                $value = trim(stripslashes($value), "'");
+            }
         );
 
         return $enum;
