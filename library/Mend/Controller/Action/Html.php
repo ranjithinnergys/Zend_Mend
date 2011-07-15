@@ -59,6 +59,15 @@ class Mend_Controller_Action_Html extends Zend_Controller_Action
     )
     {
         parent::__construct($request, $response, $invokeArgs);
+
+        // Parameterize DELETE and PUT Requests
+        if ($this->getRequest()->isDelete() || $this->getRequest()->isPut()) {
+            parse_str($this->getRequest()->getRawBody(), $params);
+            foreach ($params as $key => $value) {
+                $this->getRequest()->setParam($key, $value);
+            }
+        }
+
         $this->view->doctype('XHTML5');
         $this->initJQueryViewHelper();
         $this->initMendViewHelper();
