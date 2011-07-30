@@ -21,44 +21,66 @@
  * @copyright 2011 Doug Hurst
  * @license   http://www.opensource.org/licenses/bsd-license New BSD License
  * @link      http://github.com/dalanhurst/Zend_Mend
- * @link      http://code.google.com/apis/maps/documentation/geocoding/
  */
 class Mend_Service_Geocoder
 extends Zend_Service_Abstract
 {
     /**
-     * @var string The URI for Google's Geocoding Service
+     * @var Mend_Service_Geocoder_Adapter_Interface The Geocoding Adapter
      */
-    private static $_uri = 'http://maps.googleapis.com/maps/api/geocode/json';
+    private static $_defaultAdapter = null;
 
     /**
-     * Geocode a US Address
-     *
-     * @param string $street   The Street Address (no Apt, Ste, etc. lines)
-     * @param string $city     The City
-     * @param string $state    The US State
-     * @param bool   $isSensor Is this geocoding request from a device with a location sensor?
-     *
-     * @return array (Latitude, Longitude)
+     * @var Mend_Service_Geocoder The Geocoding Service
      */
-    public static function geocodeUSAddress($street, $city, $state, $isSensor = false)
-    {
-        $client = self::getHttpClient();
-        $response = $client
-            ->setUri(self::$_uri)
-            ->setMethod(Zend_Http_Client::GET)
-            ->setParameterGet('address', $street.','.$city.','.$state)
-            ->setParameterGet('sensor', $isSensor ? 'true' : 'false')
-            ->request();
+    private static $_instance = null;
 
-        $data = json_decode($response->getBody(), true);
-        if ($data['status'] == 'OK') {
-            return array(
-                $data['results'][0]['geometry']['location']['lat'],
-                $data['results'][0]['geometry']['location']['lng']
-            );
-        } else {
-            return array(0,0);
+    /**
+     * Singleton Constructor
+     */
+    final private function __construct()
+    {
+    }
+
+    /**
+     * Get Default Geocoding Adapter
+     *
+     * @return Mend_Service_Geocoder_Adapter_Interface
+     */
+    public static function getDefaultAdapter()
+    {
+        if (is_null(self::$_defaultAdapter)) {
+            self::$_defaultAdapter = new Mend_Service_Geocoder_Adapter_Google();
         }
+        return self::$_defaultAdapter;
+    }
+
+    /**
+     * Get Singleton Instance
+     *
+     * @return Mend_Service_Geocoder_Adapter_Interface
+     */
+    public static function getInstance()
+    {
+        if (is_null(self::$_instance)) {
+            self::$_instance = new Mend_Service_Geocoder();
+        }
+        return self::$_instance;
+    }
+
+    /**
+     * Geocode an Address
+     *
+     * @param Mend_Model_DTO_Address $address The Address
+     * @param array|null             $options Options for this adapter
+     *
+     * @return Mend_Model_DTO_Geolocation
+     */
+    public function geocode(
+        Mend_Model_DTO_Address $address,
+        array $options = array()
+    )
+    {
+        return $this->getDefaultAdapter()->geocode(self::getHttpClient(), $address, $options);
     }
 }
