@@ -35,24 +35,43 @@ class Mend_Model_Immutable extends ArrayObject
     /**
      * @see ArrayObject::exchangeArray()
      */
-    public function exchangeArray($input)
+    public final function exchangeArray($input)
     {
-        throw new LogicException(__CLASS__.' cannot be changed after instantiation.');
     }
 
     /**
      * @see ArrayObject::offsetSet()
      */
-    public function offsetSet($index, $newval)
+    public final function offsetSet($index, $newval)
     {
-        throw new LogicException(__CLASS__.' cannot be changed after instantiation.');
     }
 
     /**
      * @see ArrayObject::offsetUnset()
      */
-    public function offsetUnset($index)
+    public final function offsetUnset($index)
     {
-        throw new LogicException(__CLASS__.' cannot be changed after instantiation.');
+    }
+
+    /**
+     * Disable Magic Accessor
+     */
+    final public function __get($name)
+    {
+    }
+
+    /**
+     * Disable Magic Mutator
+     */
+    final public function __set($name, $value)
+    {
+    }
+
+    /**
+     * Do not trigger error on echo
+     */
+    public function __toString()
+    {
+        echo get_class($this);
     }
 }
