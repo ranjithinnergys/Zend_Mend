@@ -23,7 +23,6 @@
  * @link      http://github.com/dalanhurst/Zend_Mend
  */
 abstract class Mend_Model_Enum_Abstract
-implements Mend_Model_Enum_Interface
 {
     /**
      * Enum->toArray() using reflection and late static binding
@@ -32,8 +31,7 @@ implements Mend_Model_Enum_Interface
      */
     final public static function toArray()
     {
-        assert('is_string(static::getClassname())');
-        $reflection = new ReflectionClass(static::getClassname());
+        $reflection = new ReflectionClass(get_called_class());
         return $reflection->getConstants();
     }
 
