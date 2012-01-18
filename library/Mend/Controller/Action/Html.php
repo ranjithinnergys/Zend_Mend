@@ -119,7 +119,7 @@ class Mend_Controller_Action_Html extends Zend_Controller_Action
     protected function initMendViewHelper()
     {
         $view = $this->view;
-        $view->setHelperPath(
+        $view->addHelperPath(
             'Mend/View/Helper',
             'Mend_View_Helper'
         );
