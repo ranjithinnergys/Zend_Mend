@@ -38,13 +38,13 @@ class Mend_Validate_USTelephone extends Zend_Validate_Abstract
      * @param  mixed $value
      * @return boolean
      * @throws Zend_Validate_Exception If validation of $value is impossible
+     * @link http://blog.stevenlevithan.com/archives/validate-phone-number#r4-2-v-leading1
      */
     public function isValid($value)
     {
-        //  NANP Pattern, modified slightly from:
-        //  @link http://blog.stevenlevithan.com/archives/validate-phone-number#r4-2-v-leading1
-        $pattern = '/^((?:\+?1[-. ]?)?\(?([0-9]{3})\)?[-. ]?)?([0-9]{3})[-. ]?([0-9]{4})$/';
-
-        return preg_match($pattern, $value) == 1;
+        return preg_match(
+            '/^((?:\+?1[-. ]?)?\(?([0-9]{3})\)?[-. ]?)?([0-9]{3})[-. ]?([0-9]{4})$/',
+            $value
+        ) == 1;
     }
 }

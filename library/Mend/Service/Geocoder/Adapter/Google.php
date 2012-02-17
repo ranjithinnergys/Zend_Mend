@@ -48,32 +48,32 @@ implements Mend_Service_Geocoder_Adapter_Interface
         array $options
     )
     {
-        //  Indicates whether or not the geocoding request comes from a device
-        //  with a location sensor. This value must be either true or false.
-        if (!isset($options['sensor']) || !is_bool($options['sensor'])) {
-            $options['sensor'] = false;
-        }
-
-        //  Serialize Address DTO
-        $serialized = implode(',', $address->street)
-            .','.$address->city
-            .','.(is_null($address->state) ? $address->province : $address->state);
-        if (!empty($address->country)) {
-            $serialized .= ','.$address->country;
-        }
-
-        $client
-            ->setUri(self::URI)
-            ->setMethod(Zend_Http_Client::GET)
-            ->setParameterGet('address', $serialized)
-            ->setParameterGet('sensor', $options['sensor'] ? 'true' : 'false');
-
-        $data = json_decode($client->request()->getBody(), true);
         $geolocation = new Mend_Model_DTO_Geolocation();
+        $data = json_decode(
+            $client
+                ->setUri(self::URI)
+                ->setMethod(Zend_Http_Client::GET)
+                ->setParameterGet(
+                    'address',
+                    implode(',', $address->street)
+                        .','.$address->city
+                        .','.(is_null($address->state)
+                            ? $address->province
+                            : $address->state)
+                        .(!empty($address->country) ? ','.$address->country : ''))
+                ->setParameterGet(
+                    'sensor',
+                    (!isset($options['sensor']) || !is_bool($options['sensor']) || !$options['sensor'])
+                        ? 'false'
+                        : 'true')
+                ->request()
+                ->getBody(),
+            true
+        );
+
         if ($data['status'] == 'OK') {
-            $location = $data['results'][0]['geometry']['location'];
-            $geolocation->latitude = (double) $location['lat'];
-            $geolocation->longitude = (double) $location['lng'];
+            $geolocation->latitude = (double) $data['results'][0]['geometry']['location']['lat'];
+            $geolocation->longitude = (double) $data['results'][0]['geometry']['location']['lng'];
         }
         return $geolocation;
     }

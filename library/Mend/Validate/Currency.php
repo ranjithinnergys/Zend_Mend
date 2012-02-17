@@ -37,9 +37,9 @@ class Mend_Validate_Currency extends Zend_Validate_Abstract
      */
     public function isValid($value)
     {
-        $currency = new Zend_Currency('USD', 'en_US');
         try {
-            $currency->toCurrency((float) $value);
+            $currency = new Zend_Currency('USD', 'en_US');
+            $currency->toCurrency($value);
         } catch (Zend_Currency_Exception $exception) {
             return false;
         }

@@ -64,17 +64,31 @@ class Mend_Validate_Xml extends Zend_Validate_Abstract
         }
 
         //  $value could be an XML file or string
-        if (!isset($doc) && is_string($value)) {
+        if (is_string($value)) {
             $doc = new DOMDocument();
-            if (file_exists($value)) {
-                $doc->loadXML($value);
+            if (!file_exists($value)) {
+                try {
+                    $doc->loadXML($value);
+                } catch (Exception $e) {
+                    return false;
+                }
             } else {
-                $doc->load($value);
+                try {
+                    $doc->load($value);
+                } catch (Exception $e) {
+                    return false;
+                }
             }
         }
 
-        return isset($doc)
-            && $doc instanceof DOMDocument
-            && (is_null($this->_xsd) ? true : $doc->schemaValidate($this->_xsd));
+        if (!is_null($this->_xsd)) {
+            try {
+                $doc->schemaValidate($this->_xsd);
+            } catch (Exception $e) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

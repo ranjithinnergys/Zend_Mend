@@ -50,7 +50,7 @@ class Mend_Util_Uuid
         }
 
         // Calculate hash value
-        $hash = md5($nstr . $name);
+        $hash = md5($nstr.$name);
 
         return sprintf(
             '%08s-%04s-%04x-%04x-%12s',
@@ -119,7 +119,7 @@ class Mend_Util_Uuid
         }
 
         // Calculate hash value
-        $hash = sha1($nstr . $name);
+        $hash = sha1($nstr.$name);
 
         return sprintf(
             '%08s-%04s-%04x-%04x-%12s',
