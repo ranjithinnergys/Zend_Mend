@@ -5,7 +5,7 @@
  * PHP version 5.3
  *
  * @category   Zend_Mend
- * @package    Services
+ * @package    Service
  * @subpackage Geocoder
  * @author     Doug Hurst <dalan.hurst@gmail.com>
  * @copyright  2011 Doug Hurst
@@ -17,7 +17,7 @@
  * Address Geocoder Adapter: Google API
  *
  * @category   Zend_Mend
- * @package    Services
+ * @package    Service
  * @subpackage Geocoder
  * @author     Doug Hurst <dalan.hurst@gmail.com>
  * @copyright  2011 Doug Hurst

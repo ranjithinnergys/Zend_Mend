@@ -4,23 +4,25 @@
  *
  * PHP version 5.3
  *
- * @category  Zend_Mend
- * @package   Util
- * @author    Doug Hurst <dalan.hurst@gmail.com>
- * @copyright 2011 Doug Hurst
- * @license   http://www.opensource.org/licenses/bsd-license New BSD License
- * @link      http://github.com/dalanhurst/Zend_Mend
+ * @category   Zend_Mend
+ * @package    Model
+ * @subpackage DTO
+ * @author     Doug Hurst <dalan.hurst@gmail.com>
+ * @copyright  2011 Doug Hurst
+ * @license    http://www.opensource.org/licenses/bsd-license New BSD License
+ * @link       http://github.com/dalanhurst/Zend_Mend
  */
 
 /**
  * Abstract Data Transfer Object
  *
- * @category  Zend_Mend
- * @package   Model
- * @author    Doug Hurst <dalan.hurst@gmail.com>
- * @copyright 2011 Doug Hurst
- * @license   http://www.opensource.org/licenses/bsd-license New BSD License
- * @link      http://github.com/dalanhurst/Zend_Mend
+ * @category   Zend_Mend
+ * @package    Model
+ * @subpackage DTO
+ * @author     Doug Hurst <dalan.hurst@gmail.com>
+ * @copyright  2011 Doug Hurst
+ * @license    http://www.opensource.org/licenses/bsd-license New BSD License
+ * @link       http://github.com/dalanhurst/Zend_Mend
  */
 abstract class Mend_Model_DTO_Abstract
 {

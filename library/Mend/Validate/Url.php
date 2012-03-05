@@ -5,7 +5,7 @@
  * PHP version 5.3
  *
  * @category  Zend_Mend
- * @package   Util
+ * @package   Validator
  * @author    Doug Hurst <dalan.hurst@gmail.com>
  * @copyright 2011 Doug Hurst
  * @license   http://www.opensource.org/licenses/bsd-license New BSD License
@@ -16,7 +16,7 @@
  * URL Validator
  *
  * @category  Zend_Mend
- * @package   Validators
+ * @package   Validator
  * @author    Doug Hurst <dalan.hurst@gmail.com>
  * @copyright 2011 Doug Hurst
  * @license   http://www.opensource.org/licenses/bsd-license New BSD License

@@ -5,7 +5,7 @@
  * PHP version 5.3
  *
  * @category  Zend_Mend
- * @package   Services
+ * @package   Service
  * @author    Doug Hurst <dalan.hurst@gmail.com>
  * @copyright 2011 Doug Hurst
  * @license   http://www.opensource.org/licenses/bsd-license New BSD License
@@ -16,7 +16,7 @@
  * Address Geocoder
  *
  * @category  Zend_Mend
- * @package   Services
+ * @package   Service
  * @author    Doug Hurst <dalan.hurst@gmail.com>
  * @copyright 2011 Doug Hurst
  * @license   http://www.opensource.org/licenses/bsd-license New BSD License
@@ -81,6 +81,6 @@ extends Zend_Service_Abstract
         array $options = array()
     )
     {
-        return $this->getDefaultAdapter()->geocode(self::getHttpClient(), $address, $options);
+        return self::getDefaultAdapter()->geocode(self::getHttpClient(), $address, $options);
     }
 }

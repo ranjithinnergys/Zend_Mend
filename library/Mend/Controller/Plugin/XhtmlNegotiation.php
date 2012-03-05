@@ -5,7 +5,7 @@
  * PHP version 5.3
  *
  * @category   Zend_Mend
- * @package    Controllers
+ * @package    Controller
  * @subpackage Plugins
  * @author     Doug Hurst <dalan.hurst@gmail.com>
  * @copyright  2011 Doug Hurst
@@ -17,7 +17,7 @@
  * XHTML Content-Negotiation Controller Plugin
  *
  * @category   Zend_Mend
- * @package    Controllers
+ * @package    Controller
  * @subpackage Plugins
  * @author     Richard Knop <risoknop@gmail.com>
  * @author     Doug Hurst <dalan.hurst@gmail.com>
@@ -37,7 +37,7 @@ class Mend_Controller_Plugin_XhtmlNegotiation extends Zend_Controller_Plugin_Abs
      */
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
-        /** Set Response correctly if possible */
+        // Set Response correctly if possible
         if ($this->getResponse()->canSendHeaders()) {
             if (stristr($request->getHeader('Accept'), 'application/xhtml+xml') !== false
                 || stristr($request->getHeader('Accept'), 'application/xml') !== false

@@ -5,8 +5,8 @@
  * PHP version 5.3
  *
  * @category   Zend_Mend
- * @package    Form
- * @subpackage Elements
+ * @package    Db
+ * @subpackage Table
  * @author     Doug Hurst <dalan.hurst@gmail.com>
  * @copyright  2011 Doug Hurst
  * @license    http://www.opensource.org/licenses/bsd-license New BSD License
@@ -14,22 +14,18 @@
  */
 
 /**
- * HTML5 Time Form Element
+ * DB Exception
  *
  * @category   Zend_Mend
- * @package    Form
- * @subpackage Elements
+ * @package    Db
+ * @subpackage Table
  * @author     Doug Hurst <dalan.hurst@gmail.com>
  * @copyright  2011 Doug Hurst
  * @license    http://www.opensource.org/licenses/bsd-license New BSD License
- * @link       http://dev.w3.org/html5/markup/input.time.html
  * @link       http://github.com/dalanhurst/Zend_Mend
+ * @uses       Mend_Db_Table_Rowset
  */
-class Mend_Form_Element_Time extends Zend_Form_Element_Xhtml
+class Mend_Db_Exception
+extends Zend_Db_Exception
 {
-    /**
-     * Default form view helper to use for rendering
-     * @var string
-     */
-    public $helper = 'formTime';
 }

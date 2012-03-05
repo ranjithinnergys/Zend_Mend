@@ -5,8 +5,8 @@
  * PHP version 5.3
  *
  * @category   Zend_Mend
- * @package    Controllers
- * @subpackage Plugins
+ * @package    Form
+ * @subpackage Elements
  * @author     Doug Hurst <dalan.hurst@gmail.com>
  * @copyright  2011 Doug Hurst
  * @license    http://www.opensource.org/licenses/bsd-license New BSD License
@@ -17,7 +17,7 @@
  * HTML5 Search Form Element
  *
  * @category   Zend_Mend
- * @package    Forms
+ * @package    Form
  * @subpackage Elements
  * @author     Doug Hurst <dalan.hurst@gmail.com>
  * @copyright  2011 Doug Hurst

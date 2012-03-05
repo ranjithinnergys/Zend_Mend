@@ -5,7 +5,7 @@
  * PHP version 5.3
  *
  * @category   Zend_Mend
- * @package    Controllers
+ * @package    Controller
  * @subpackage Actions
  * @author     Doug Hurst <dalan.hurst@gmail.com>
  * @copyright  2011 Doug Hurst
@@ -17,7 +17,7 @@
  * (X)HTML Action Controller
  *
  * @category   Zend_Mend
- * @package    Controllers
+ * @package    Controller
  * @subpackage Actions
  * @author     Doug Hurst <dalan.hurst@gmail.com>
  * @license    http://www.opensource.org/licenses/bsd-license New BSD License
@@ -26,25 +26,12 @@
 class Mend_Controller_Action_Html extends Zend_Controller_Action
 {
     /**
-     * Class constructor
+     * Constructor
      *
-     * The request and response objects should be registered with the
-     * controller, as should be any additional optional arguments; these will be
-     * available via {@link getRequest()}, {@link getResponse()}, and
-     * {@link getInvokeArgs()}, respectively.
-     *
-     * When overriding the constructor, please consider this usage as a best
-     * practice and ensure that each is registered appropriately; the easiest
-     * way to do so is to simply call parent::__construct($request, $response,
-     * $invokeArgs).
-     *
-     * After the request, response, and invokeArgs are set, the
-     * {@link $_helper helper broker} is initialized.
-     *
-     * Finally, {@link init()} is called as the final action of
-     * instantiation, and may be safely overridden to perform initialization
-     * tasks; as a general rule, override {@link init()} instead of the
-     * constructor to customize an action controller's instantiation.
+     * Overriding to
+     *  * Parameterize PUT & DELETE requests
+     *  * Initialize some view helpers
+     *  * Set the IS_XHR definition
      *
      * @param Zend_Controller_Request_Abstract  $request    The request
      * @param Zend_Controller_Response_Abstract $response   The response
@@ -87,10 +74,6 @@ class Mend_Controller_Action_Html extends Zend_Controller_Action
     /**
      * Initialize jQuery View Helpers
      *
-     * The latest 1.x jQuery libraries from Google's CDN if in a
-     * production environment, otherwise load the local "jquery-latest"
-     * file.
-     *
      * @return void
      *
      * @link http://jquery.com/
@@ -108,9 +91,6 @@ class Mend_Controller_Action_Html extends Zend_Controller_Action
 
     /**
      * Initialize Mend View Helpers
-     *
-     * Provides, among other things, the BodyScript view helper to write
-     * script elements into <body/> rather than <head/>
      *
      * @return void
      *
