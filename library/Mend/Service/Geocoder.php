@@ -58,7 +58,7 @@ extends Zend_Service_Abstract
     /**
      * Get Singleton Instance
      *
-     * @return Mend_Service_Geocoder_Adapter_Interface
+     * @return Mend_Service_Geocoder
      */
     public static function getInstance()
     {

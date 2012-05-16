@@ -51,6 +51,7 @@ implements Mend_Service_Geocoder_Adapter_Interface
         $geolocation = new Mend_Model_DTO_Geolocation();
         $data = json_decode(
             $client
+                ->setEncType($client::ENC_FORMDATA)
                 ->setUri(self::URI)
                 ->setMethod(Zend_Http_Client::GET)
                 ->setParameterGet(
@@ -75,6 +76,7 @@ implements Mend_Service_Geocoder_Adapter_Interface
             $geolocation->latitude = (double) $data['results'][0]['geometry']['location']['lat'];
             $geolocation->longitude = (double) $data['results'][0]['geometry']['location']['lng'];
         }
+
         return $geolocation;
     }
 }

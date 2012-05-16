@@ -18,6 +18,12 @@ error_reporting(E_ALL | E_STRICT);
 //  Maximize memory for testing
 ini_set('memory_limit', '-1');
 
+//  Turn off asserts while testing
+ini_set('assert.active', '0');
+
+//  Set some paths
+define('TESTS_ROOT', __DIR__);
+
 //  Class-map Autoloading
 //  @link http://weierophinney.net/matthew/archives/245-Autoloading-Benchmarks.html
 require_once __DIR__.'/../resources/classmap.Zend_Mend.php';

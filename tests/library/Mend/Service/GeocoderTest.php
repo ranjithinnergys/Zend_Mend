@@ -69,12 +69,12 @@ class Mend_Service_GeocoderTest extends PHPUnit_Framework_TestCase
 	public function testGeocodingAnAddressReturnsGeolocation()
 	{
 	    $address = new Mend_Model_DTO_Address();
-	    $address->street = array('1600 Amphitheatre Parkway');
-	    $address->city = 'Mountain View';
-	    $address->state = 'CA';
+	    $address->street = array('1600 Pennsylvania Ave');
+	    $address->city = 'Washington';
+	    $address->state = 'DC';
 	    $geolocation = Mend_Service_Geocoder::getInstance()->geocode($address);
 	    $this->assertInstanceOf('Mend_Model_DTO_Geolocation', $geolocation);
-	    $this->assertGreaterThan(37.421, $geolocation->latitude);
-	    $this->assertLessThan(-122.0841, $geolocation->longitude);
+	    $this->assertGreaterThan(38.897, $geolocation->latitude);
+	    $this->assertLessThan(-77.036, $geolocation->longitude);
 	}
 }
