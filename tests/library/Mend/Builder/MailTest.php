@@ -29,26 +29,52 @@ class Mend_Builder_MailTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return null
 	 */
-	public function testCanCreateAMailDto()
+	public function testCanBuildAZendMailObject()
 	{
         $view = new Zend_View();
+        $view->hello = "Hello World";
         $view->setBasePath(TESTS_ROOT.'/resources/views');
-	    $dto = Mend_Builder_Mail::start()
+	    $mail = Mend_Builder_Mail::start()
             ->withFromAddress('from@example.com')
             ->withToAddress('to@example.com')
             ->withSubject('Test Mail Object')
-            ->withHtmlView($view, 'html.phtml')
-            ->withTextView($view, 'text.phtml')
+            ->withHtmlView($view, 'html')
+            ->withTextView($view, 'text')
             ->build();
-        $this->assertInstanceOf('Mend_Model_DTO_Mail', $dto);
-        $this->assertInternalType('array', $dto->addressesBcc);
-        $this->assertInternalType('array', $dto->addressesCc);
-        $this->assertInternalType('array', $dto->addressesTo);
-        $this->assertInternalType('string', $dto->subject);
-        $this->assertInternalType('string', $dto->bodyHtml);
-        $this->assertInternalType('string', $dto->bodyText);
-        $this->assertEquals(0, count($dto->addressesBcc));
-        $this->assertEquals(0, count($dto->addressesCc));
-        $this->assertEquals(1, count($dto->addressesTo));
+        $this->assertInstanceOf('Zend_Mail', $mail);
+        $this->assertEquals('from@example.com', $mail->getFrom());
+        $this->assertEquals(array('to@example.com'), $mail->getRecipients());
+        $this->assertEquals('Test Mail Object', $mail->getSubject());
+        $this->assertContains('<p>Hello World</p>', $mail->getBodyHtml(true));
+        $this->assertContains('Hello World', $mail->getBodyText(true));
 	}
+
+    /**
+     * Create a Mail DTO with the builder
+     *
+     * @return null
+     */
+    public function testCanBuildAZendMailObject2()
+    {
+        $layoutHtml = new Zend_Layout(TESTS_ROOT.'/resources/layouts');
+        $layoutText = new Zend_Layout(TESTS_ROOT.'/resources/layouts');
+        $view = new Zend_View();
+        $view->hello = "Hello World";
+        $view->setBasePath(TESTS_ROOT.'/resources/views');
+        $mail = Mend_Builder_Mail::start()
+            ->withFromAddress('from@example.com', 'From Guy')
+            ->withToAddress('to@example.com', 'To Guy')
+            ->withSubject('Test Mail Object')
+            ->withHtmlLayout($layoutHtml, 'html')
+            ->withTextLayout($layoutText, 'text')
+            ->withHtmlView($view, 'html')
+            ->withTextView($view, 'text')
+            ->build();
+        $this->assertInstanceOf('Zend_Mail', $mail);
+        $this->assertEquals('from@example.com', $mail->getFrom());
+        $this->assertEquals(array('to@example.com'), $mail->getRecipients());
+        $this->assertEquals('Test Mail Object', $mail->getSubject());
+        $this->assertContains('<p>Hello World</p>', $mail->getBodyHtml(true));
+        $this->assertContains('Hello World', $mail->getBodyText(true));
+    }
 }

@@ -13,7 +13,7 @@
  */
 
 /**
- * Builder: Mail DTO
+ * Fluent Builder for Zend_Mail
  *
  * @category  Zend_Mend
  * @package   Builder
@@ -25,22 +25,63 @@
 class Mend_Builder_Mail
 {
     /**
-     * @var Mend_Model_DTO_Mail The DTO
-     */
-    private $_dto;
-
-    /**
      * @var Zend_Validate_EmailAddress Email Validator
      */
     private $_validator;
+
+    /**
+     * @var array The Addresses
+     */
+    private $_addresses;
+
+    /**
+     * @var string The Subject
+     */
+    private $_subject;
+
+    /**
+     * @var Zend_Layout The HTML Layout
+     */
+    private $_layoutHtml;
+
+    /**
+     * @var Zend_Layout The Text Layout
+     */
+    private $_layoutText;
+
+    /**
+     * @var Zend_View The HTML View
+     */
+    private $_viewHtml;
+
+    /**
+     * @var string The HTML View Template
+     */
+    private $_viewHtmlTemplate;
+
+    /**
+     * @var Zend_View The Text View
+     */
+    private $_viewText;
+
+    /**
+     * @var string The Text View Template
+     */
+    private $_viewTextTemplate;
 
     /**
      * Private Constructor
      */
     private function __construct()
     {
-        $this->_dto = new Mend_Model_DTO_Mail();
         $this->_validator = new Zend_Validate_EmailAddress();
+        $this->_addresses = array(
+            'from' => array(),
+            'to' => array(),
+            'cc' => array(),
+            'bcc' => array(),
+            'reply-to' => array()
+        );
     }
 
     /**
@@ -56,11 +97,46 @@ class Mend_Builder_Mail
     /**
      * Finalizer
      *
-     * @return Mend_Model_DTO_Mail
+     * @return Zend_Mail
      */
     public function build()
     {
-        return $this->_dto;
+        $mail = new Zend_Mail();
+        if (count($this->_addresses['from'])) {
+            $mail->setFrom(
+                current($this->_addresses['from']),
+                key($this->_addresses['from'])
+            );
+        }
+        if (count($this->_addresses['reply-to'])) {
+            $mail->setReplyTo(
+                current($this->_addresses['reply-to']),
+                key($this->_addresses['reply-to'])
+            );
+        }
+        if (count($this->_addresses['to'])) {
+            $mail->addTo($this->_addresses['to']);
+        }
+        if (count($this->_addresses['cc'])) {
+            $mail->addTo($this->_addresses['cc']);
+        }
+        if (count($this->_addresses['bcc'])) {
+            $mail->addTo($this->_addresses['bcc']);
+        }
+        if (!is_null($this->_layoutHtml)) {
+            $this->_layoutHtml->setView($this->_viewHtml);
+            $mail->setBodyHtml($this->_layoutHtml->render($this->_viewHtmlTemplate));
+        } else {
+            $mail->setBodyHtml($this->_viewHtml->render($this->_viewHtmlTemplate.'.phtml'));
+        }
+        if (!is_null($this->_layoutText)) {
+            $this->_layoutText->setView($this->_viewText);
+            $mail->setBodyText($this->_layoutText->render($this->_viewTextTemplate));
+        } else {
+            $mail->setBodyText($this->_viewText->render($this->_viewTextTemplate.'.phtml'));
+        }
+        $mail->setSubject($this->_subject);
+        return $mail;
     }
 
     /**
@@ -70,7 +146,9 @@ class Mend_Builder_Mail
      */
     public function clearBccAddresses()
     {
-        $this->_dto->addressesBcc = array();
+        if (isset($this->_addresses['bcc'])) {
+            $this->_addresses['bcc'] = array();
+        }
         return $this;
     }
 
@@ -81,7 +159,9 @@ class Mend_Builder_Mail
      */
     public function clearCcAddresses()
     {
-        $this->_dto->addressesCc = array();
+        if (isset($this->_addresses['cc'])) {
+            $this->_addresses['cc'] = array();
+        }
         return $this;
     }
 
@@ -92,7 +172,9 @@ class Mend_Builder_Mail
      */
     public function clearToAddresses()
     {
-        $this->_dto->addressesTo = array();
+        if (isset($this->_addresses['to'])) {
+            $this->_addresses['to'] = array();
+        }
         return $this;
     }
 
@@ -100,13 +182,18 @@ class Mend_Builder_Mail
      * Add a "BCC" Address
      *
      * @param string $address The Address
+     * @param string $display The Display Name
      *
      * @return Mend_Builder_Mail
      */
-    public function withBccAddress($address)
+    public function withBccAddress($address, $display = null)
     {
-        assert('$this->isEmail($address)');
-        $this->_dto->addressesBcc[] = $address;
+        assert('$this->isEmail($address) && (is_string($display) || is_null($display))');
+        if (is_null($display)) {
+            $this->_addresses['bcc'][] = $address;
+        } else {
+            $this->_addresses['bcc'][$display] = $address;
+        }
         return $this;
     }
 
@@ -114,13 +201,18 @@ class Mend_Builder_Mail
      * Add a "CC" Address
      *
      * @param string $address The Address
+     * @param string $display The Display Name
      *
      * @return Mend_Builder_Mail
      */
-    public function withCcAddress($address)
+    public function withCcAddress($address, $display = null)
     {
-        assert('$this->isEmail($address)');
-        $this->_dto->addressesCc[] = $address;
+        assert('$this->isEmail($address) && (is_string($display) || is_null($display))');
+        if (is_null($display)) {
+            $this->_addresses['cc'][] = $address;
+        } else {
+            $this->_addresses['cc'][$display] = $address;
+        }
         return $this;
     }
 
@@ -128,13 +220,18 @@ class Mend_Builder_Mail
      * Add a "To" Address
      *
      * @param string $address The Address
+     * @param string $display The Display Name
      *
      * @return Mend_Builder_Mail
      */
-    public function withToAddress($address)
+    public function withToAddress($address, $display = null)
     {
-        assert('$this->isEmail($address)');
-        $this->_dto->addressesTo[] = $address;
+        assert('$this->isEmail($address) && (is_string($display) || is_null($display))');
+        if (is_null($display)) {
+            $this->_addresses['to'][] = $address;
+        } else {
+            $this->_addresses['to'][$display] = $address;
+        }
         return $this;
     }
 
@@ -142,13 +239,18 @@ class Mend_Builder_Mail
      * "From" Address Mutator
      *
      * @param string $address The Address
+     * @param string $display The Display Name
      *
      * @return Mend_Builder_Mail
      */
-    public function withFromAddress($address)
+    public function withFromAddress($address, $display = null)
     {
-        assert('$this->isEmail($address)');
-        $this->_dto->addressFrom = $address;
+        assert('$this->isEmail($address) && (is_string($display) || is_null($display))');
+        if (is_null($display)) {
+            $this->_addresses['from'] = array($address);
+        } else {
+            $this->_addresses['from'] = array($display => $address);
+        }
         return $this;
     }
 
@@ -156,13 +258,18 @@ class Mend_Builder_Mail
      * "Reply-To" Address Mutator
      *
      * @param string $address The Address
+     * @param string $display The Display Name
      *
      * @return Mend_Builder_Mail
      */
-    public function withReplyToAddress($address)
+    public function withReplyToAddress($address, $display = null)
     {
-        assert('$this->isEmail($address)');
-        $this->_dto->addressReplyTo = $address;
+        assert('$this->isEmail($address) && (is_string($display) || is_null($display))');
+        if (is_null($display)) {
+            $this->_addresses['reply-to'] = array($address);
+        } else {
+            $this->_addresses['reply-to'] = array($display => $address);
+        }
         return $this;
     }
 
@@ -176,12 +283,42 @@ class Mend_Builder_Mail
     public function withSubject($subject)
     {
         assert('is_string($subject)');
-        $this->_dto->subject = $subject;
+        $this->_subject = $subject;
         return $this;
     }
 
     /**
-     * HTML Body Mutator
+     * HTML Layout Mutator
+     *
+     * @param Zend_Layout $layout   The Layout
+     * @param string      $template The Layout Template
+     *
+     * @return Mend_Builder_Mail
+     */
+    public function withHtmlLayout(Zend_Layout $layout, $template)
+    {
+        assert('file_exists($layout->getScriptPath($template.".phtml"))');
+        $this->_layoutHtml = $layout->setLayout($template);
+        return $this;
+    }
+
+    /**
+     * Text Layout Mutator
+     *
+     * @param Zend_Layout $layout   The Layout
+     * @param string      $template The Layout Template
+     *
+     * @return Mend_Builder_Mail
+     */
+    public function withTextLayout(Zend_Layout $layout, $template)
+    {
+        assert('file_exists($layout->getScriptPath($template.".phtml"))');
+        $this->_layoutText = $layout->setLayout($template);
+        return $this;
+    }
+
+    /**
+     * HTML View Mutator
      *
      * @param Zend_View $view     The View
      * @param string    $template The View Template
@@ -190,13 +327,14 @@ class Mend_Builder_Mail
      */
     public function withHtmlView(Zend_View $view, $template)
     {
-        assert('file_exists($view->getScriptPath($template))');
-        $this->_dto->bodyHtml = $view->render($template);
+        assert('file_exists($view->getScriptPath($template.".phtml"))');
+        $this->_viewHtml = $view;
+        $this->_viewHtmlTemplate = $template;
         return $this;
     }
 
     /**
-     * Text Body Mutator
+     * Text View Mutator
      *
      * @param Zend_View $view     The View
      * @param string    $template The View Template
@@ -205,8 +343,9 @@ class Mend_Builder_Mail
      */
     public function withTextView(Zend_View $view, $template)
     {
-        assert('file_exists($view->getScriptPath($template))');
-        $this->_dto->bodyText = $view->render($template);
+        assert('file_exists($view->getScriptPath($template.".phtml"))');
+        $this->_viewText = $view;
+        $this->_viewTextTemplate = $template;
         return $this;
     }
 
