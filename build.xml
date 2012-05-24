@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Zend_XHTML5" default="all">
+<project name="Zend_Mend" default="all">
 	<property name="path.Zend" value="/usr/local/zend/share/ZendFramework/library/Zend" />
 	<property name="path.ZendX" value="/usr/local/zend/share/ZendFramework/library/ZendX" />
 	<property name="path.Zend_Mend" value="library/Mend" />

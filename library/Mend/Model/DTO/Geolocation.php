@@ -28,12 +28,12 @@ class Mend_Model_DTO_Geolocation
 extends Mend_Model_DTO_Abstract
 {
     /**
-     * @var double The Latitude
+     * @var float The Latitude
      */
-    public $latitude = 0;
+    public $latitude = 0.0;
 
     /**
-     * @var double The Longitude
+     * @var float The Longitude
      */
-    public $longitude = 0;
+    public $longitude = 0.0;
 }

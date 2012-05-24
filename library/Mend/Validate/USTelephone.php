@@ -42,6 +42,10 @@ class Mend_Validate_USTelephone extends Zend_Validate_Abstract
      */
     public function isValid($value)
     {
+        if (!is_string($value)) {
+            throw new Zend_Validate_Exception();
+        }
+
         return preg_match(
             '/^((?:\+?1[-. ]?)?\(?([0-9]{3})\)?[-. ]?)?([0-9]{3})[-. ]?([0-9]{4})$/',
             $value

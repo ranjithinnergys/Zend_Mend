@@ -124,14 +124,14 @@ class Mend_Builder_Mail
             $mail->addTo($this->_addresses['bcc']);
         }
         if (!is_null($this->_layoutHtml)) {
-            $this->_layoutHtml->setView($this->_viewHtml);
-            $mail->setBodyHtml($this->_layoutHtml->render($this->_viewHtmlTemplate));
+            $this->_layoutHtml->content = $this->_viewHtml->render($this->_viewHtmlTemplate.'.phtml');
+            $mail->setBodyHtml($this->_layoutHtml->render());
         } else {
             $mail->setBodyHtml($this->_viewHtml->render($this->_viewHtmlTemplate.'.phtml'));
         }
         if (!is_null($this->_layoutText)) {
-            $this->_layoutText->setView($this->_viewText);
-            $mail->setBodyText($this->_layoutText->render($this->_viewTextTemplate));
+            $this->_layoutText->content = $this->_viewText->render($this->_viewTextTemplate.'.phtml');
+            $mail->setBodyText($this->_layoutText->render());
         } else {
             $mail->setBodyText($this->_viewText->render($this->_viewTextTemplate.'.phtml'));
         }

@@ -45,8 +45,8 @@ class Mend_Builder_MailTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('from@example.com', $mail->getFrom());
         $this->assertEquals(array('to@example.com'), $mail->getRecipients());
         $this->assertEquals('Test Mail Object', $mail->getSubject());
-        $this->assertContains('<p>Hello World</p>', $mail->getBodyHtml(true));
-        $this->assertContains('Hello World', $mail->getBodyText(true));
+        $this->assertContains('<p>Hello World</p>', $mail->getBodyHtml()->getRawContent());
+        $this->assertContains('Hello World', $mail->getBodyText()->getRawContent());
 	}
 
     /**
@@ -56,8 +56,8 @@ class Mend_Builder_MailTest extends PHPUnit_Framework_TestCase
      */
     public function testCanBuildAZendMailObject2()
     {
-        $layoutHtml = new Zend_Layout(TESTS_ROOT.'/resources/layouts');
-        $layoutText = new Zend_Layout(TESTS_ROOT.'/resources/layouts');
+        $layoutHtml = new Zend_Layout(TESTS_ROOT.'/resources/layouts/scripts');
+        $layoutText = new Zend_Layout(TESTS_ROOT.'/resources/layouts/scripts');
         $view = new Zend_View();
         $view->hello = "Hello World";
         $view->setBasePath(TESTS_ROOT.'/resources/views');
@@ -74,7 +74,9 @@ class Mend_Builder_MailTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('from@example.com', $mail->getFrom());
         $this->assertEquals(array('to@example.com'), $mail->getRecipients());
         $this->assertEquals('Test Mail Object', $mail->getSubject());
-        $this->assertContains('<p>Hello World</p>', $mail->getBodyHtml(true));
-        $this->assertContains('Hello World', $mail->getBodyText(true));
+        $this->assertContains('<title>Test</title>', $mail->getBodyHtml()->getRawContent());
+        $this->assertContains('<p>Hello World</p>', $mail->getBodyHtml()->getRawContent());
+        $this->assertContains('Test Layout', $mail->getBodyText()->getRawContent());
+        $this->assertContains('Hello World', $mail->getBodyText()->getRawContent());
     }
 }
